@@ -13,20 +13,29 @@ export const getTestData  = () => async dispatch => {
     try{
         req = await fetchGet(apiUrl + 'getTest');
     }catch(err) {
-        console.log("Network Err:",err);
+        console.error("Network failure:",err);
         return
     }
     try{
-        res = await req.text();
+        if (req.ok){ //避免404与500这样的响应
+            res = await req.text();
+        }else{
+            console.error('Server Error，Code：' + req.status);
+            return
+        }
     }catch(err){
-        console.log("textErr:",err);
+        console.error("Text Error:",err);
         return
     }
 
-    await dispatch({
-        type:'GET_REQ_VALUE',
-        res,
-    });
+    if (res){
+        await dispatch({
+            type:'GET_REQ_VALUE',
+            res,
+        });
+    }
+
+
 
 };
 
@@ -35,14 +44,20 @@ export const getJsonTestData  = () => async dispatch => {
     try{
         req = await fetchGet(apiUrl + 'getJsonTest');
     }catch(err) {
-        console.log("Network Err:",err);
+        console.log("Network Error:",err);
         return
     }
 
     try{
-        res = await req.json();
+        if (req.ok){
+            res = await req.json();
+        }else{
+            console.error('Server Error，Code：' + req.status);
+            return
+        }
+
     }catch(err){
-        console.log("jsonErr:",err);
+        console.log("Json Error:",err);
         return
     }
 
@@ -67,18 +82,23 @@ export const postTest = obj => async (dispatch, getState) =>{
         return
     }
     try{
-        res = await req.json();
+        if (req.ok){
+            res = await req.json();
+        }else{
+            console.error('Server Error，Code：' + req.status);
+            return
+        }
     }catch(err){
-        console.log("jsonErr:",err);
+        console.log("Json Error:",err);
         return
     }
-
     console.log('res:',res);
 
 };
 
+/* //async 返回的是一个promise对象（异步）
 async function basicDemo() {
     let result = await Math.random();
     console.log(result);
 }
-console.log(basicDemo());
+console.log(basicDemo());*/
