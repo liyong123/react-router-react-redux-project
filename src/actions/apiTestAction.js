@@ -13,18 +13,18 @@ export const getTestData  = () => async dispatch => {
     try{
         req = await fetchGet(apiUrl + 'getTest');
     }catch(err) {
-        console.error("Network failure:",err);
+        console.error("网络故障:",err);
         return
     }
     try{
         if (req.ok){ //避免404与500这样的响应
             res = await req.text();
         }else{
-            console.error('Server Error，Code：' + req.status);
+            console.error('后台服务出错，Code：' + req.status);
             return
         }
     }catch(err){
-        console.error("Text Error:",err);
+        console.error("接口数据有误:",err);
         return
     }
 
@@ -44,7 +44,7 @@ export const getJsonTestData  = () => async dispatch => {
     try{
         req = await fetchGet(apiUrl + 'getJsonTest');
     }catch(err) {
-        console.log("Network Error:",err);
+        console.log("网络故障:",err);
         return
     }
 
@@ -52,12 +52,12 @@ export const getJsonTestData  = () => async dispatch => {
         if (req.ok){
             res = await req.json();
         }else{
-            console.error('Server Error，Code：' + req.status);
+            console.error('后台服务出错，Code：' + req.status);
             return
         }
 
     }catch(err){
-        console.log("Json Error:",err);
+        console.log("接口数据有误:",err);
         return
     }
 
@@ -78,18 +78,18 @@ export const postTest = obj => async (dispatch, getState) =>{
     try{
         req = await fetchPost((apiUrl + 'postTest'),obj);
     }catch(err) {
-        console.log("Network Err:",err);
+        console.log("网络故障:",err);
         return
     }
     try{
         if (req.ok){
             res = await req.json();
         }else{
-            console.error('Server Error，Code：' + req.status);
+            console.error('后台服务出错，Code：' + req.status);
             return
         }
     }catch(err){
-        console.log("Json Error:",err);
+        console.log("接口数据有误:",err);
         return
     }
     console.log('res:',res);

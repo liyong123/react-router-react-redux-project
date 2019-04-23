@@ -42,7 +42,7 @@ export const uploadFile = e => async dispatch => {
             body:formData,
             headers:{
                 'Accept':'application/json, text/plain , */*',
-                "Content-Type": "multipart/form-data"
+                /*"Content-Type": "multipart/form-data"*/   //上传文件时不要设置Content-Type
             },
         })
     } catch(err) {
