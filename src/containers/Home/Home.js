@@ -3,8 +3,8 @@ import Table from './Table';
 import Form from './Form';
 import { connect } from 'react-redux'
 import { setCharacters, removeOneCharacter }  from '../../actions/homeAction'
-
-
+import {Button} from 'antd'
+import './home.less'
 class Home extends Component {
 
     /*removeCharacter = index => {
@@ -39,6 +39,7 @@ class Home extends Component {
         
         return (
             <div className="container">
+                <Button type='primary'>ant-design Button</Button>
                 <h1>React Tutorial</h1>
                 <p>Add a character with a name and a job to the table.</p>
                 <Table
