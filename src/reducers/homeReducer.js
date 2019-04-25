@@ -1,7 +1,7 @@
 /*import merge from 'lodash/merge';*/
 
 const defaulteState = {
-   form: {
+   ageJobForm: {
        age: '',
        job: ''
    },
@@ -14,15 +14,15 @@ const homeReducer = (state = defaulteState, action ) => {
             /*return merge({}, state, {form: {[action.name]: action.value}});*/
             return {
                 ...state,
-                form:{
-                    ...state.form,
+                ageJobForm:{
+                    ...state.ageJobForm,
                     [action.name]: action.value,
                 }
             };
         case 'CLEAR_FORMITEM_VALUE':
             return {
                 ...state,
-                form:{
+                ageJobForm:{
                     age: '',
                     job: ''
                 }

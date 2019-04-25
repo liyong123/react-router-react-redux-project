@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import Table from './Table';
-import Form from './Form';
+import AgeJobForm from './AgeJobForm';
 import { connect } from 'react-redux'
 import { setCharacters, removeOneCharacter }  from '../../actions/homeAction'
-import {Button} from 'antd'
 import './home.less'
 class Home extends Component {
 
@@ -39,15 +38,14 @@ class Home extends Component {
         
         return (
             <div className="container">
-                <Button type='primary'>ant-design Button</Button>
-                <h1>React Tutorial</h1>
+                <h1>React Test</h1>
                 <p>Add a character with a name and a job to the table.</p>
                 <Table
                     characterData={characters}
                     removeCharacter={this.removeCharacter}
                 />
                 <h3>Add New</h3>
-                <Form handleSubmit={this.handleSubmit} />
+                <AgeJobForm handleSubmit={this.handleSubmit} />
             </div>
         );
     }

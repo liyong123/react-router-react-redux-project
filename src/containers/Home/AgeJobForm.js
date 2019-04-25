@@ -3,59 +3,12 @@ import { connect } from 'react-redux'
 import { formItemValueChange, clearFormItemValue, uploadFile} from '../../actions/homeAction'
 import { postTest } from "../../actions/apiTestAction";
 import get from 'lodash/get'
-/*class Form extends Component {
-    constructor(props) {
-        super(props);
-        
-        this.initialState = {
-            name: '',
-            job: ''
-        };
+import {Form, Icon, Input, InputNumber, Button} from 'antd'
+const FormItem = Form.Item;
 
-        this.state = this.initialState;
-    }
 
-    handleChange = event => {
-        const { name, value } = event.target;
-        this.setState({
-            [name] : value
-        });
-    };
-
-    onFormSubmit = (event) => {
-        event.preventDefault();
-        
-        this.props.handleSubmit(this.state);
-        this.setState(this.initialState);
-    };
-
-    render() {
-        const { name, job } = this.state; 
-
-        return (
-            <form onSubmit={this.onFormSubmit}>
-                <label>Name</label>
-                <input 
-                    type="text" 
-                    name="name"
-                    value={name}
-                    onChange={this.handleChange} />
-                <label>Job</label>
-                <input 
-                    type="text" 
-                    name="job"
-                    value={job}
-                    onChange={this.handleChange} />
-                <button type="submit">
-                    Submit
-                </button>
-            </form>
-        );
-    }
-}*/
-
-const StateName = 'form';
-class Form extends Component {
+const StateName = 'ageJobForm';
+class AgeJobForm extends Component {
     handleChange = event => {
        const { name, value } = event.target;
        const { formItemValueChange } = this.props;
@@ -65,7 +18,7 @@ class Form extends Component {
     onFormSubmit = (event) => {
         event.preventDefault();
         const { clearFormItemValue, postTest } = this.props;
-        const age = get(this.props[StateName], 'age', '');
+        /*const age = get(this.props[StateName], 'age', '');
         const job = get(this.props[StateName], 'job', '');
         const objGrp = {
             age: age,
@@ -77,7 +30,14 @@ class Form extends Component {
             postTest(objGrp);//post测试
         }else{
             alert('您有必填项未填写！')
-        }
+        }*/
+        this.props.form.validateFields((err, values)=> {
+            if (!err) {
+                this.props.handleSubmit(values);
+                clearFormItemValue();
+                postTest(values);//post测试
+            }
+        })
 
     };
     uploadFile = e =>{
@@ -86,11 +46,11 @@ class Form extends Component {
     };
     render () {
         const { age , job } = this.props[StateName];
-
+        const { getFieldDecorator } = this.props.form;
         return (
             <div>
                 <div>
-                    <form onSubmit={this.onFormSubmit}>
+                    {/*<form onSubmit={this.onFormSubmit}>
                         <label>Age:</label>
                         <input
                             type="text"
@@ -108,7 +68,28 @@ class Form extends Component {
                         <button type="submit">
                             submit
                         </button>
-                    </form>
+                    </form>*/}
+                    <Form  onSubmit={this.onFormSubmit}>
+                        <FormItem label="年龄">
+                            {getFieldDecorator('age', {
+                                initialValue:age,
+                                rules:[{ required: true, message: '请输入您的年龄！'}]
+                            })(
+                                <InputNumber placeholder='年龄' />
+                            )}
+                        </FormItem>
+                        <FormItem label="工作">
+                            {getFieldDecorator('job', {
+                                initialValue:job,
+                                rules:[{ required: true, message: '请输入您的工作！'}]
+                            })(
+                                <Input style={{ width: 300 }} placeholder='工作' />
+                            )}
+                        </FormItem>
+                        <FormItem>
+                            <Button type="primary" htmlType="submit">添加</Button>
+                        </FormItem>
+                    </Form>
                 </div>
                 <div>
                     <input type='file' onChange={this.uploadFile}/>
@@ -118,9 +99,9 @@ class Form extends Component {
         )
     }
 }
-
+const WrappedAgeJobForm = Form.create()(AgeJobForm);
 const mapStateToProps = state => ({
-    [StateName]:state.homeReducer.form
+    [StateName]:state.homeReducer.ageJobForm
 });
 
 const mapDispatchToProps = {
@@ -133,4 +114,4 @@ const mapDispatchToProps = {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Form);
+)(WrappedAgeJobForm);
