@@ -1,6 +1,7 @@
-import React, {Component} from "react";
+import React, {Component} from "react"
 import { connect } from 'react-redux'
 import { setVisibilityFilter } from '../../actions/addToDoAction'
+import { Button } from 'antd'
 /*import get from 'lodash/get'*/
 
 const StateName = 'visibilityFilterReducer';
@@ -12,16 +13,17 @@ class FilterLink extends Component {
         console.log("todos:",todos );*/
 
         return (
-            <button
+            <Button
+                type={ active ? 'primary' : 'default' }
                 onClick={()=>{setVisibilityFilter(filter)}}
-                disabled={active}
-                style={{
+               /* disabled={active}*/
+                /*style={{
                     marginLeft: '4px',
                     backgroundColor: active ? '#ccc' : '#0366EE'
-                }}
+                }}*/
             >
                 {this.props.children}
-            </button>
+            </Button>
         )
     }
 }

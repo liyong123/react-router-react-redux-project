@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'antd'
 
 //函数式组件
 const TableHeader = () => {
@@ -24,7 +25,7 @@ class TableBody extends Component {
                          <tr key={Math.random()+index}>
                              <td>{item.age}</td>
                              <td>{item.job}</td>
-                             <td><button onClick={()=>{removeCharacter(index)}}>delete</button></td>
+                             <td><Button type='primary' onClick={()=>{removeCharacter(index)}}>delete</Button></td>
                          </tr>
                      )
                  })

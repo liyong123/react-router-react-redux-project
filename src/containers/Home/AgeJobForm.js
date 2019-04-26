@@ -2,10 +2,9 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { formItemValueChange, clearFormItemValue, uploadFile} from '../../actions/homeAction'
 import { postTest } from "../../actions/apiTestAction";
-import get from 'lodash/get'
-import {Form, Icon, Input, InputNumber, Button} from 'antd'
+/*import get from 'lodash/get'*/
+import {Form, Input, InputNumber, Button} from 'antd'
 const FormItem = Form.Item;
-
 
 const StateName = 'ageJobForm';
 class AgeJobForm extends Component {
@@ -75,7 +74,7 @@ class AgeJobForm extends Component {
                                 initialValue:age,
                                 rules:[{ required: true, message: '请输入您的年龄！'}]
                             })(
-                                <InputNumber placeholder='年龄' />
+                                <InputNumber  style={{ width: 300 }} min={1} placeholder='年龄' />
                             )}
                         </FormItem>
                         <FormItem label="工作">
