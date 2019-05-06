@@ -1,0 +1,13 @@
+.menuAll{
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 230px;
+    bottom: 0;
+    z-index: 997;
+    background-color: #868b9f;
+    background-image: url("/image/menu-bg.png");
+    background-position:  0  0;
+    background-size: 100% 100%;
+    overflow-y: auto;
+}

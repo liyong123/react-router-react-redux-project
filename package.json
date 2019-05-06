@@ -9,6 +9,7 @@
     "customize-cra": "^0.2.12",
     "es6-promise": "^4.2.6",
     "express": "^4.16.4",
+    "history": "^4.9.0",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "path": "^0.12.7",

@@ -16,7 +16,7 @@ class Router extends  Component {
                 <Switch>
                     <Provider  store={store}>
                         <Route path="/" render={props => (
-                            <Layout >
+                            <Layout>
                                 <Switch>
                                     <Route exact path='/' component={Home} />
                                     <Route exact path='/detail' component={Detail} />
