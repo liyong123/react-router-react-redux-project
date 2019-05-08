@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import get from 'lodash/get'
 import '../css/menu.css'
 
+
 const StateName = 'menuReducer';
 const { SubMenu, Item }= Menu;
 const Icon =  _Icon.createFromIconfontCN({
@@ -20,12 +21,14 @@ class BoardMenu extends Component {
 
      render(){
          const menuData = get(this.props[StateName], 'menuData', []);
+         const collapsed = get(this.props.headerReducer, 'collapsed', false);
          return (
-             <div className='menuAll' >
+             <div className={`${'menuAll'} ${collapsed ? 'menuAll2' : ''}`} >
                  {
                     menuData.length > 0 ? (
                             <Menu
                                 mode="inline"
+                                inlineCollapsed={collapsed}
                             >
                                 {
                                     menuData.length > 0 && menuData.map(item => {
@@ -48,10 +51,12 @@ class BoardMenu extends Component {
                                         }else{
                                             return (
                                                 <Item key={item.name}>
-                                                    <span>
-                                                        <Icon type={item.icon}/>
-                                                        <span>{item.name}</span>
-                                                    </span>
+                                                    <Link to={`${item.url}`}>
+                                                        <span>
+                                                            <Icon type={item.icon}/>
+                                                            <span>{item.name}</span>
+                                                        </span>
+                                                    </Link>
                                                 </Item>
                                             )
                                         }
@@ -67,7 +72,8 @@ class BoardMenu extends Component {
 }
 
 const mapStateToProps = state => ({
-    [StateName]: state[StateName]
+    [StateName]: state[StateName],
+    headerReducer: state.headerReducer
 });
 const mapDispatchToProps = {
     getMenuData
