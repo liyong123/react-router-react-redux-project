@@ -20,6 +20,7 @@ export const getTestData  = () => async dispatch => {
         if (req.ok){ //避免404与500这样的响应
             res = await req.text();
         }else{
+            //如果ok为false，比如404、500,打印出状态码，即以前的statuscode
             console.error('后台服务出错，Code：' + req.status);
             return
         }
@@ -61,7 +62,7 @@ export const getJsonTestData  = () => async dispatch => {
         return
     }
 
-    if(res.status&&res.status === 400){
+    if(res.status&&res.status === 400){ //此处的status是res的，注意和上面req.status（statusCode）的区别
        await dispatch({
             type:'GET_JSON_REQ_VALUE',
             res,
@@ -96,6 +97,33 @@ export const postTest = obj => async (dispatch, getState) =>{
 
 };
 
+export const login = (obj) => async  dispatch => {
+    let req, res;
+    try{
+        req = await fetchPost((apiUrl + 'login'),obj);
+    }catch(err) {
+        console.log("网络故障:",err);
+        return
+    }
+    try{
+        if (req.ok){
+            res = await req.json();
+        }else{
+            console.error('后台服务出错，Code：' + req.status);
+            return
+        }
+    }catch(err){
+        console.log("接口数据有误:",err);
+        return
+    }
+
+    if(res.status&&res.status === 400){ //此处的status是res的，注意和上面req.status（statusCode）的区别
+        localStorage.setItem('x-access-token',"ssss");//登录成功 将token或者openid保存到storage中，其他接口的header要带上此值
+    }else {
+
+    }
+
+};
 /* //async 返回的是一个promise对象（异步）
 async function basicDemo() {
     let result = await Math.random();
